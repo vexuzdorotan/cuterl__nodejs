@@ -1,0 +1,78 @@
+<%- include('../partials/header.ejs'); -%>
+
+<div class="container">
+  <h1 class="display-6 mt-5">
+    <a href="/" class="vxz-home-header">c<span class="text-success">U</span>te<span class="text-success">RL</span></a>: Shorten your URL</h1>
+
+  <form action="/" method="POST">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" name="origUrl" placeholder="Original URL" />
+      <button
+        class="btn btn-outline-success"
+        type="submit"
+        id="button-addon2"
+      >
+        Shorten URL
+      </button>
+    </div>
+  </form>
+
+  <table class="table table-success table-striped align-middle">
+    <thead class="text-center">
+      <tr>
+        <th class="vxz-row-no">Row</th>
+        <th class="vxz-orig-url">Original URL</th>
+        <th>Short URL</th>
+        <th>Last Access</th>
+        <th># of Clicks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% urls.forEach((url, i) => { %>
+        <tr>
+          <td class="text-end fw-bold"><%= ((page - 1) * limit) + (i + 1) %></td>
+          <td><%= url.origUrl %></td>
+          <!-- target="_blank" -->
+          <td class="text-center"><a href="<%= url.shortUrl %>"><%= url.shortUrl %></a></td>
+          <td class="text-center"><%= (url.updatedAt).toDateString().substr(4) %></td>
+          <td class="text-center"><%= url.numClicks %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <nav class="navbar vxz-navbar-expand navbar-light bg-light">
+    <div class="container-fluid">
+      <p class="text-success m-0">Total URLs: <span class="fw-bold"><%= urlCount %></span></p>
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+          <div class="btn-group dropup" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Rows Per Page (<%= limit %>)
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="btnGroupDrop1">
+              <li><a class="dropdown-item" href="?limit=5">5</a></li>
+              <li><a class="dropdown-item" href="?limit=10">10</a></li>
+              <li><a class="dropdown-item" href="?limit=15">15</a></li>
+              <li><a class="dropdown-item" href="?limit=20">20</a></li>
+              <li><a class="dropdown-item" href="?limit=25">25</a></li>
+            </ul>
+          </div>
+          
+          <a class="btn btn-outline-success" aria-current="page" href="?limit=<%= limit %>&page=<%= page > 1 ? page - 1 : 1%>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+          </svg></a>
+
+          <button type="button" class="btn btn-outline-success" disabled><%= page %></button>
+
+          <a class="btn btn-outline-success" aria-current="page" href="?limit=<%= limit %>&page=<%= (page * limit) < urlCount ? page + 1 : page%>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+          </svg></a>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<%- include('../partials/footer.ejs'); -%>

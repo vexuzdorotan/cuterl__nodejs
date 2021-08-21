@@ -1,0 +1,27 @@
+.vxz-home-header {
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (min-width: 0) {
+  .vxz-navbar-expand {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+}
+
+table {
+  table-layout: fixed;
+}
+
+table td {
+  word-wrap: break-word;
+}
+
+table .vxz-row-no {
+  width: 5%;
+}
+
+table .vxz-orig-url {
+  width: 50%;
+}
